@@ -14,13 +14,13 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Clients', [{
       firstName: 'El vitto',
-      order: 'Cerveza 1;Cerveza 2',
+      addedItems: '4 Cerveza 1; 5 Cerveza 2',
       randomId: 1211,
       createdAt: new Date().toDateString(),
       updatedAt: new Date().toDateString()
     }, {
       firstName: 'El guz',
-      order: 'Cerveza 3;Cerveza 4',
+      addedItems: '1 Cerveza 3; 1 Cerveza 4',
       randomId: 3242,
       createdAt: new Date().toDateString(),
       updatedAt: new Date().toDateString()

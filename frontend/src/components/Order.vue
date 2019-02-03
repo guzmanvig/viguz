@@ -1,51 +1,79 @@
 <template>
  <div class="order">
    <form class="form" @submit.prevent="pay">
-      <h3 class='subtitle'>{{ title }}</h3>
       <div class="field">
-        <label>First Name</label>
+        <label>Nombre</label>
         <div class="control">
           <input class="input" type="text" v-model="firstName">
         </div> 
       </div>
-      <div class="field">
-        <label>Beer 1</label>
+      <item v-for="item in availableItems"
+       :key="item.name"
+       :item="item"
+       :payed="payed"
+       @item-added="itemAdded"/>
+      <div class="field" style="margin-top:50px">
         <div class="control">
-          <input class="input" type="text" v-model="beer1">
-        </div> 
-      </div>
-      <div class="field">
-        <label>Beer 2</label>
-          <div class="control">
-            <input class="input" type="text" v-model="beer2">
-          </div> 
-      </div>
-      <div class="field">
-        <div class="control">
-          <button class="button is-success">Pay</button>
+          <button class="button is-success">Pagar&nbsp; ${{totalPrice}}</button>
         </div> 
       </div>
     </form>
+    <div v-show="payed" class="notification is-info" style="margin-top:50px">
+        La orden fue pagada! Retirala con este identificador: <strong>{{firstNameCopy}}&nbsp;{{randomId}}</strong>
+    </div>
   </div>
 </template>
 
 <script>
+import Item from "./Item"
+
 export default {
   name: "order",
+  components: {
+      Item
+  },
   data () {
       return {
         firstName: '',
-        beer1: '',
-        beer2: ''
+        firstNameCopy: '',   //Copy to show in the alert
+        availableItems: [],
+        addedItems: [],
+        totalPrice: 0,
+        payed: false,
+        randomId: 0,
       }
     },
   methods: {
       pay() {
-        this.$emit('pay-order', {firstName: this.firstName, beer1: this.beer1, beer2: this.beer2})
+        this.randomId = Math.floor(Math.random() * 9999);
+        this.$emit('pay-order', {firstName: this.firstName, addedItems: this.addedItems, randomId: this.randomId});
+        this.addedItems = [];
+        this.totalPrice = 0;
+        this.firstNameCopy = this.firstName;
         this.firstName = '';
-        this.beer1 = '';
-        this.beer2 = '';
+        this.payed = true;
+      },
+      itemAdded(item){
+        this.payed = false;
+        this.addedItems.push(item);
+        this.totalPrice = this.totalPrice + item.price
       }
-    }
+  },
+  beforeMount () {  //TODO: get this from database
+    this.availableItems = [
+      {
+        'name' : 'Blonde Ale',
+        'price': 150
+      },
+      {
+        'name' : 'Red Ale',
+        'price': 180
+      },
+      {
+        'name' : 'Ipa',
+        'price': 170
+      }
+    ] 
+  }
 };
 </script>

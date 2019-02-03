@@ -1,7 +1,7 @@
 <template>
   <div id="seller">
     <section class="section section-container" style="padding-top: 24px; padding-bottom: 5px;">
-    <h2 class="title">Clients</h2>
+    <h2 class="title">Clientes</h2>
     <client v-for="client in clients"
        :key="client.name"
        :client="client"
@@ -24,7 +24,7 @@
     data() {
          return  {
             clients: [],
-            backendURL: 'http://localhost:3000/api/clients'
+            backendURL: Url
          }
     },
     methods: {

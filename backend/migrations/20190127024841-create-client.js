@@ -12,7 +12,7 @@ module.exports = {
       firstName: {
         type: Sequelize.STRING
       },
-      order: {
+      addedItems: {
         type: Sequelize.STRING
       },
       randomId: {

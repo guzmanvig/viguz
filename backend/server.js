@@ -15,7 +15,6 @@ app.get('/api/clients', (req, res) => {
   return db.Client.findAll()
     .then((clients) => {
       res.send(processAllClientsFromDB(clients))
-      console.log("req" +JSON.stringify(req.headers))
     })
     .catch((err) => {
       console.log('There was an error querying clients', JSON.stringify(err))
@@ -24,10 +23,13 @@ app.get('/api/clients', (req, res) => {
 });
 
 app.post('/api/clients', (req, res) => {
+
+  var addedItemsString =  parseAddedItems(req.body.addedItems);
+
   var client = {
     'firstName' : req.body.firstName,
-    'order': req.body.beer1 + ";" + req.body.beer2,
-    'randomId': Math.floor(Math.random() * 9999)
+    'addedItems': addedItemsString,
+    'randomId': req.body.randomId
   }
   return db.Client.create(client)
     .then((client) => res.send(client))
@@ -67,7 +69,7 @@ app.listen(3000, () => {
 });
 
 function processClientFromDB(DBclient) {
-    DBclient.order = DBclient.order.split(';')
+    DBclient.addedItems = DBclient.addedItems.split(';')
     return DBclient; 
 }
 
@@ -77,4 +79,33 @@ function processAllClientsFromDB(DBclients) {
     clients.push(processClientFromDB(DBclients[i]));
   }
   return clients;
-} 
+}
+
+function parseAddedItems(addedItems) {  
+// The items must  go as a string separated by ;  I.e: "1 Pale Ale;3 Red Ale"  
+// addedItems is an array of items that might be repeated
+
+  var auxiliarDictionary = {}  // Key : name of item, Value: ammount
+  var auxiliarArray = []      // Array that has no repeated items
+
+  for (var i = 0; i < addedItems.length; i++) {
+      var itemName = addedItems[i].name
+      if (auxiliarArray.includes(itemName)) {
+        auxiliarDictionary[itemName] = auxiliarDictionary[itemName] + 1
+      } else {
+        auxiliarArray.push(itemName)
+        auxiliarDictionary[itemName] = 1
+      }
+  }
+
+  var finalString = ''
+  const entries = Object.entries(auxiliarDictionary)
+  for (const [item, ammount] of entries) {
+    if (finalString == '')
+        finalString = finalString + ammount + ' ' + item
+    else
+        finalString = finalString +';'+ ammount + ' ' + item
+  }
+
+  return finalString; 
+}

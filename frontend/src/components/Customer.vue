@@ -1,8 +1,7 @@
 <template>
   <div id="customer" class="container">
     <section class="section section-container" style="padding-top: 24px; padding-bottom: 5px;">
-      <h1 class="title">Montevideo Beer Company</h1>
-      <h4 class="title">by Viguz</h4>
+      <h1 class="title">Realiza tu pedido aqui!</h1>
       </section>
     <section class="section section-container" style="padding-bottom: 10px;">
       <div class="box">
