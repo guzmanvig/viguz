@@ -11,15 +11,22 @@
        :key="item.name"
        :item="item"
        :payed="payed"
-       @item-added="itemAdded"/>
+       @item-added="itemAdded"
+       @item-removed="itemRemoved"/>
       <div class="field" style="margin-top:50px">
         <div class="control">
           <button class="button is-success">Pagar&nbsp; ${{totalPrice}}</button>
         </div> 
       </div>
     </form>
-    <div v-show="payed" class="notification is-info" style="margin-top:50px">
-        La orden fue pagada! Retirala con este identificador: <strong>{{firstNameCopy}}&nbsp;{{randomId}}</strong>
+    <div class="modal is-active" v-show="payed">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div v-show="payed" class="notification is-info" style="margin-top:50px">
+          La orden fue pagada! Retirala con este identificador: <strong>{{firstNameCopy}}&nbsp;{{randomId}}</strong>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" @click="payed = false"></button>
     </div>
   </div>
 </template>
@@ -57,6 +64,14 @@ export default {
         this.payed = false;
         this.addedItems.push(item);
         this.totalPrice = this.totalPrice + item.price
+      },
+      itemRemoved(item){
+        this.payed = false;
+        var index = this.addedItems.indexOf(5);
+        if (index > -1) {
+          this.addedItems.splice(index, 1);
+        }
+        this.totalPrice = this.totalPrice - item.price
       }
   },
   beforeMount () {  //TODO: get this from database
