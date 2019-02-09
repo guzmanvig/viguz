@@ -1,9 +1,9 @@
 <template>
  <div class="order">
    <form class="form" @submit.prevent="pay">
-      <div class="field">
-        <label>Nombre</label>
-        <div class="control">
+      <div class="field" style="margin-bottom: 30px">
+        <label>Nombre:</label>
+        <div class="control" style="margin-top: 10px">
           <input class="input" type="text" v-model="firstName">
         </div> 
       </div>
@@ -13,7 +13,7 @@
        :payed="payed"
        @item-added="itemAdded"
        @item-removed="itemRemoved"/>
-      <div class="field" style="margin-top:50px">
+      <div class="field" style="margin-top:25px">
         <div class="control">
           <button class="button is-success">Pagar&nbsp; ${{totalPrice}}</button>
         </div> 
@@ -22,7 +22,7 @@
     <div class="modal is-active" v-show="payed">
       <div class="modal-background"></div>
       <div class="modal-content">
-        <div v-show="payed" class="notification is-info" style="margin-top:50px">
+        <div v-show="payed" class="notification is-info">
           La orden fue pagada! Retirala con este identificador: <strong>{{firstNameCopy}}&nbsp;{{randomId}}</strong>
         </div>
       </div>

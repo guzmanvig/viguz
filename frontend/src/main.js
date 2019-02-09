@@ -6,8 +6,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-//var Url = "https://viguzbackend.serveo.net/api/clients";
-var Url = "http://localhost:3000/api/clients";
+var Url = "https://viguzbackend.serveo.net/api/clients";
+//var Url = "http://localhost:3000/api/clients";
 export default Url;
 
 /* eslint-disable no-new */

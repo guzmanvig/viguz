@@ -1,9 +1,9 @@
 <template>
-  <div id="customer" class="container">
-    <section class="section section-container" style="padding-top: 24px; padding-bottom: 5px;">
+  <div id="customer" class="container" style="width: unset; max-width: none">
+    <section class="section" style="padding-bottom: 10px;">
       <h1 class="title">Realiza tu pedido aqui!</h1>
       </section>
-    <section class="section section-container" style="padding-bottom: 10px;">
+    <section class="section" style="padding: 10px;">
       <div class="box">
         <Order title="Place your order" @pay-order="saveClient" />
       </div>

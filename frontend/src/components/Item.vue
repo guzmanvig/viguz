@@ -11,19 +11,18 @@
         </p>
       </div>
       <div class="column is-one-third">
-        <div class="columns is-mobile is-vcentered">
-           <div class="column is-one-third has-text-right">
+        <div class="columns is-mobile is-vcentered is-centered">
+          <div class="column is-one-quarter"></div>
+           <div class="column is-one-quarter has-text-right">
               <p class="subtitle is-6">
                 <strong> {{ ammount }}</strong>
               </p>
           </div>
-          <div class="column">
-            <span class="icon" @click.stop="add()">
+          <div class="column is-one-quarter" @click.stop="add()"> 
               <i class="fa fa-plus"></i>
-            </span>
-            <span class="icon" @click.stop="remove()">
+          </div>
+          <div class="column is-one-quarter" @click.stop="remove()">   
               <i class="fa fa-minus"></i>
-            </span>
           </div>
         </div> 
       </div>
