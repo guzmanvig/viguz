@@ -1,2 +1,2 @@
 # viguz
-Webapp to order in a bar/restarurant and to view orders
+Webapp to order in a bar/restaurant and to view orders
